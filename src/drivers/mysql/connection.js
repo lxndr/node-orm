@@ -1,10 +1,7 @@
 import {Promise} from 'bluebird';
+import SqlConnection from '../sql/connection';
 
-export default class MysqlConnection {
-  constructor(driver) {
-    this.driver = driver;
-  }
-
+export default class MysqlConnection extends SqlConnection {
   open() {
     return new Promise((resolve, reject) => {
       this.driver.pool.getConnection((err, db) => {
@@ -20,6 +17,7 @@ export default class MysqlConnection {
   }
 
   query(sql) {
+    super.query(sql);
     return Promise.fromCallback(cb => {
       console.log('SQL:', sql);
       this.db.query(sql, cb);
@@ -29,17 +27,5 @@ export default class MysqlConnection {
   close() {
     this.db.release();
     return Promise.resolve();
-  }
-
-  beginTransaction() {
-    return this.query('START TRANSACTION');
-  }
-
-  commit() {
-    return this.query('COMMIT');
-  }
-
-  rollback() {
-    return this.query('ROLLBACK');
   }
 }

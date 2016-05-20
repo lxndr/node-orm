@@ -46,3 +46,24 @@ export const modelMethods = {
     });
   }
 };
+
+export const instanceMethods = {
+  changed() {
+    const orm = Reflect.getPrototypeOf(this).orm;
+    const list = [];
+
+    _.each(orm.fields, field => {
+      list.push(field.name);
+    });
+
+    return list;
+  },
+
+  async persist() {
+    const orm = Reflect.getPrototypeOf(this).orm;
+    const changed = this.changed();
+    // orm.query();
+    console.log('saving');
+    return null;
+  }
+};

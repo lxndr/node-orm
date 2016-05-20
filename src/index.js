@@ -2,7 +2,7 @@ import URL from 'url';
 import 'zone.js';
 import _ from 'lodash';
 import createDriver from './driver';
-import {modelMethods} from './model';
+import {modelMethods, instanceMethods} from './model';
 
 function init(proto) {
   if (proto.orm) {
@@ -24,6 +24,7 @@ export function model(options = {}) {
     orm.schema = options.schema || _.snakeCase(Model.name);
 
     _.extend(Model, modelMethods);
+    _.extend(Model.prototype, instanceMethods);
   };
 }
 
@@ -81,18 +82,21 @@ export class Database {
 
     try {
       await connection.beginTransaction();
-      const result = await Zone.current.fork({
-        name: 'transaction',
-        properties: {
-          database: this,
-          connection
-        }
-      }).run(cb);
-      await connection.commit();
-      return result;
-    } catch (err) {
-      await connection.rollback();
-      throw err;
+
+      try {
+        const result = await Zone.current.fork({
+          name: 'transaction',
+          properties: {
+            database: this,
+            connection
+          }
+        }).run(cb);
+        await connection.commit();
+        return result;
+      } catch (err) {
+        await connection.rollback();
+        throw err;
+      }
     } finally {
       connection.close();
     }

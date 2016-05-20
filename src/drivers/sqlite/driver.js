@@ -2,10 +2,11 @@ import SqliteConnection from './connection';
 
 export default class SqliteDriver {
   constructor(options = {}) {
-    this.path = options.path;
+    this.path = options.path || ':memory:';
   }
 
   createConnection() {
-    return new SqliteConnection(this);
+    const connection = new SqliteConnection(this);
+    return connection.open();
   }
 }
