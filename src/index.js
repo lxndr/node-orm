@@ -2,42 +2,11 @@ import URL from 'url';
 import 'zone.js';
 import _ from 'lodash';
 import createDriver from './driver';
-import {modelMethods, instanceMethods} from './model';
+export {model, field} from './model';
 
-function init(proto) {
-  if (proto.orm) {
-    return proto.orm;
-  }
-
-  proto.orm = {
-    schema: null,
-    fields: []
-  };
-
-  return proto.orm;
-}
-
-export function model(options = {}) {
-  return function (Model) {
-    const orm = init(Model.prototype);
-
-    orm.schema = options.schema || _.snakeCase(Model.name);
-
-    _.extend(Model, modelMethods);
-    _.extend(Model.prototype, instanceMethods);
-  };
-}
-
-export function field(options = {}) {
-  return function (target, key) {
-    const orm = init(target);
-
-    orm.fields.push({
-      name: key,
-      column: options.column || key,
-      allowNull: options.allowNull || true
-    });
-  };
+export function query(...args) {
+  const database = Zone.current.get('database');
+  return database.query(...args);
 }
 
 export class Database {

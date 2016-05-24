@@ -5,24 +5,16 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     clean: [
-      'build'
+      'lib'
     ],
 
     eslint: {
       files: 'src/**/*.js'
     },
 
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          dest: 'build',
-          src: [
-            'LICENSE',
-            'README.md',
-            'package.json'
-          ]
-        }]
+    mochaTest: {
+      test: {
+        src: 'tests/*.js'
       }
     },
 
@@ -31,13 +23,19 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'src',
-          src: ['**/*.js'],
-          dest: 'build/lib'
+          src: '**/*.js',
+          dest: 'lib'
         }]
+      },
+      options: {
+        plugins: [
+          'transform-es2015-modules-commonjs'
+        ]
       }
     }
   });
 
-  grunt.registerTask('default', ['copy', 'babel']);
+  grunt.registerTask('default', ['babel']);
   grunt.registerTask('lint', ['eslint']);
+  grunt.registerTask('test', ['mochaTest']);
 };

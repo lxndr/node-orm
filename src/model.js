@@ -67,3 +67,39 @@ export const instanceMethods = {
     return null;
   }
 };
+
+function initialize(proto) {
+  if (proto.orm) {
+    return proto.orm;
+  }
+
+  proto.orm = {
+    schema: null,
+    fields: []
+  };
+
+  return proto.orm;
+}
+
+export function model(options = {}) {
+  return function (Model) {
+    const orm = initialize(Model.prototype);
+
+    orm.schema = options.schema || _.snakeCase(Model.name);
+
+    _.extend(Model, modelMethods);
+    _.extend(Model.prototype, instanceMethods);
+  };
+}
+
+export function field(options = {}) {
+  return function (target, key) {
+    const orm = initialize(target.prototype ? target.prototype : target);
+
+    orm.fields.push({
+      name: key,
+      column: options.column || key,
+      allowNull: options.allowNull || true
+    });
+  };
+}
