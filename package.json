@@ -1,6 +1,6 @@
 {
   "name": "@lxndr/orm",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "",
   "main": "lib/index.js",
   "directories": {
@@ -10,29 +10,33 @@
   "license": "MIT",
   "repository": "lxndr/node-orm",
   "devDependencies": {
-    "babel-eslint": "^6.0.4",
-    "babel-plugin-transform-async-to-module-method": "^6.8.0",
-    "babel-plugin-transform-class-properties": "^6.9.0",
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.0",
+    "babel-plugin-transform-class-properties": "^6.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.8.0",
-    "eslint": "^2.10.2",
-    "eslint-config-xo": "^0.14.1",
-    "eslint-plugin-babel": "^3.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-preset-es2017": "^6.16.0",
+    "eslint": "^3.9.1",
+    "eslint-config-xo-space": "^0.15.0",
+    "eslint-plugin-babel": "^3.3.0",
     "grunt": "^1.0.1",
     "grunt-babel": "^6.0.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-eslint": "^18.1.0",
-    "grunt-mocha-test": "^0.12.7",
-    "load-grunt-tasks": "^3.5.0",
-    "mocha": "^2.5.1",
-    "zone.js": "^0.6.12"
+    "grunt-eslint": "^19.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "load-grunt-tasks": "^3.5.2",
+    "mocha": "^3.1.2"
   },
   "dependencies": {
-    "lodash": "^4.13.1",
-    "mysql2": "^1.0.0-rc.1",
-    "sqlite3": "^3.1.4",
-    "mariasql": "^0.2.6"
+    "lodash": "^4.16.6"
+  },
+  "peerDependencies": {
+    "arangojs": "^5.1.0",
+    "mariasql": "^0.2.6",
+    "mysql2": "^1.1.0",
+    "nedb": "^1.8.0",
+    "sqlite3": "^3.1.4"
   },
   "scripts": {
     "prepublish": "grunt clean && grunt",

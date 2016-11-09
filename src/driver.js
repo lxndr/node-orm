@@ -5,6 +5,14 @@ export default function (options = {}) {
     driver: 'mysql'
   });
 
-  const DriverClass = require(`./drivers/${options.driver}`).default;
-  return new DriverClass(options);
+  const modulePath = `./drivers/${options.driver}`;
+
+  try {
+    const DriverClass = require(modulePath).default;
+    return new DriverClass(options);
+  } catch (err) {
+    console.error(err);
+    console.error(`Could not load driver module '${options.driver}' from '${modulePath}'`);
+    throw err;
+  }
 }

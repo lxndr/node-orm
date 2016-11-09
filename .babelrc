@@ -1,11 +1,8 @@
 {
+  "presets": ["es2017"],
   "plugins": [
     "transform-es2015-modules-commonjs",
     "transform-decorators-legacy",
-    "transform-class-properties",
-    ["transform-async-to-module-method", {
-      "module": "bluebird",
-      "method": "coroutine"
-    }]
+    "transform-class-properties"
   ]
 }

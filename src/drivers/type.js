@@ -1,4 +1,4 @@
-{
+module.exports = {
   name: 'string',
 
   size: 'tiny',
@@ -18,4 +18,4 @@
   parse(value) {
     return value;
   }
-}
+};

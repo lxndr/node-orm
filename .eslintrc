@@ -1,11 +1,10 @@
-extends: xo/esnext
+extends: xo-space/esnext
 
 globals:
   Zone: true
 
 rules:
   indent:
-    - error
-    - 2
-    -
-      SwitchCase: 1
+  - error
+  - 2
+  - SwitchCase: 1

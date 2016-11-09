@@ -1,12 +1,13 @@
-'use strict';
-
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
-    clean: [
-      'lib'
-    ],
+    clean: {
+      files: [
+        'dist',
+        'lib'
+      ]
+    },
 
     eslint: {
       files: 'src/**/*.js'
@@ -26,11 +27,6 @@ module.exports = function (grunt) {
           src: '**/*.js',
           dest: 'lib'
         }]
-      },
-      options: {
-        plugins: [
-          'transform-es2015-modules-commonjs'
-        ]
       }
     }
   });

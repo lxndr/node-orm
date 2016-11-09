@@ -1,5 +1,5 @@
 import URL from 'url';
-import 'zone.js';
+// import 'zone.js';
 import _ from 'lodash';
 import createDriver from './driver';
 export {model, field} from './model';
@@ -42,8 +42,10 @@ export class Database {
     this.driver = createDriver(options);
   }
 
-  close() {
-    return this.driver.close();
+  async close() {
+    if (this.driver.close) {
+      await this.driver.close();
+    }
   }
 
   async transaction(cb) {
@@ -71,15 +73,29 @@ export class Database {
     }
   }
 
-  async query(sql, params) {
-    let connection = Zone.current.get('connection');
-    if (connection) {
-      return await connection.query(sql);
+  async query(cmd) {
+    if (!this.driver.query) {
+      throw new Error('Quering is not supported.');
     }
 
-    connection = await this.driver.createConnection();
-    const result = await connection.query(sql);
-    await connection.close();
+    let result;
+
+    if (this.driver.createConnection) {
+      const connection = await this.driver.createConnection();
+      result = await connection.query(cmd);
+      await connection.close();
+    } else {
+      result = await this.driver.query(cmd);
+    }
+
     return result;
+  }
+
+  collection(name) {
+    if (!this.driver.collection) {
+      throw new Error('This database does not support collections.');
+    }
+
+    return this.driver.collection(name);
   }
 }
