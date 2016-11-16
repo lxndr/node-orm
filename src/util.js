@@ -16,7 +16,10 @@ export class WhereStatement {
   }
 }
 
-
+/**
+ * @param {Function} cb
+ * @return {Promise}
+ */
 export function promiseFromCallback(cb) {
   return new Promise((resolve, reject) => {
     try {
@@ -33,4 +36,3 @@ export function promiseFromCallback(cb) {
     }
   });
 }
-
