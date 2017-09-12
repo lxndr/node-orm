@@ -2,6 +2,10 @@
  *
  */
 export class Connection {
+  constructor(db) {
+    this.db = db;
+  }
+
   /**
    * @method Connection#beginTransaction
    */

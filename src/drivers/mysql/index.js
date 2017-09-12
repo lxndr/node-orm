@@ -1,1 +1,1 @@
-export {default} from './driver';
+export {MysqlDriver as default} from './database';

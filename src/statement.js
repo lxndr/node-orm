@@ -1,9 +1,9 @@
 /**
  * Expression: {fn: ..., args: [...]}
  */
-class Statement {
+export class Statement {
   constructor(expr) {
-    this.ret = this._parse('$and', expr);
+    // this.ret = this._parse('$and', expr);
     this.optimize();
   }
 

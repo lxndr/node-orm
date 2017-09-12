@@ -1,8 +1,7 @@
-import {Promise} from 'bluebird';
 import sqlite3 from 'sqlite3';
-import SqlConnection from '../sql/connection';
+import {SqlConnection} from '../sql/connection';
 
-export default class SqliteConnection extends SqlConnection {
+export class SqliteConnection extends SqlConnection {
   open() {
     return Promise.fromCallback(cb => {
       this.db = new sqlite3.Database(this.driver.path, cb);

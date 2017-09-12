@@ -1,1 +1,1 @@
-export {MemoryCollection as default} from './driver';
+export {MemoryDatabase as default} from './driver';

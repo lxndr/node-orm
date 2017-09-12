@@ -12,7 +12,7 @@ export class ConnectionManager {
    */
   get defaultConnection() {
     if (!this._defaultConnection) {
-      this._defaultConnection = this.createConnection();
+      this._defaultConnection = this.db.createConnection();
     }
 
     return this._defaultConnection;

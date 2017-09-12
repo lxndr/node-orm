@@ -1,5 +1,8 @@
-export default class SqlConnection {
+import {Connection} from '../../connection';
+
+export default class SqlConnection extends Connection {
   constructor(driver) {
+    super();
     this.driver = driver;
   }
 

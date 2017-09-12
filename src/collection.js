@@ -6,6 +6,20 @@ import {View} from './view';
  * @abstract
  */
 export class Collection extends EventEmitter {
+  constructor(db, name) {
+    super();
+    this._db = db;
+    this._name = name;
+  }
+
+  get db() {
+    return this._db;
+  }
+
+  get name() {
+    return this._name;
+  }
+
   /**
    * Insert a single document.
    * @param {Object} document
@@ -37,7 +51,7 @@ export class Collection extends EventEmitter {
    * @return {?Promise<Object>} document.
    */
   async findOne(query) {
-    return _.first(this.find(query));
+    return _.first(await this.find(query));
   }
 
   /**
@@ -51,15 +65,20 @@ export class Collection extends EventEmitter {
     });
   }
 
+  async distinct(field) {
+    const items = await this.find();
+    return _(items).map(field).uniq().value();
+  }
+
   /**
    * @param {Object} [options]
-   * @param {string} options.fieldName
+   * @param {String} options.fieldName
    * @param {boolean} options.unique
    */
   ensureIndex() {}
 
   /**
-   * @param {string} field
+   * @param {String} field
    */
   removeIndex() {}
 

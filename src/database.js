@@ -6,14 +6,14 @@ export {model, field} from './model';
 /**
  * Create new Database object.
  *
- * @param {string} url A URL like 'driver://username:password@hostname:port'.
+ * @param {String} url A URL like 'driver://username:password@hostname:port'.
  * @param {Object} options
- * @param {string} options.driver='memory'
- * @param {string} options.host
- * @param {number} options.port
- * @param {string} options.username
- * @param {string} options.password
- * @param {string} options.database
+ * @param {String} options.driver='memory'
+ * @param {String} options.host
+ * @param {Number} options.port
+ * @param {String} options.username
+ * @param {String} options.password
+ * @param {String} options.database
  */
 export class Database {
   constructor(url, options) {
@@ -62,7 +62,7 @@ export class Database {
     }
 
     /* init */
-    this._connectionManager = new this.ConnectionManager;
+    this._connectionManager = new this.ConnectionManager(this);
   }
 
   /**
@@ -116,7 +116,7 @@ export class Database {
   /**
    * Database native query language if supported.
    *
-   * @param {string} command
+   * @param {String} command
    * @return {any}
    */
   query(command) {
@@ -144,7 +144,7 @@ export class Database {
   }
 
   /**
-   * @param {string} name of the collection
+   * @param {String} name of the collection
    * @return {Collection}
    */
   collection(name) {
@@ -152,9 +152,7 @@ export class Database {
       throw new Error('This database does not support collections.');
     }
 
-    return this._connectionManager.get(connection => {
-      return connection.collection(name);
-    });
+    return new this.Collection(this, name);
   }
 }
 

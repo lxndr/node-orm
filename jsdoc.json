@@ -1,0 +1,16 @@
+{
+  "source": {
+    "include": ["src"]
+  },
+  "plugins": ["node_modules/jsdoc-strip-async-await"],
+  "opts": {
+    "recurse": true,
+    "template": "node_modules/egjs-jsdoc-template",
+    "destination": "docs/api"
+  },
+  "templates": {
+    "default": {
+      "outputSourceFiles": false
+    }
+  }
+}

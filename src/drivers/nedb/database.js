@@ -1,7 +1,10 @@
+import {Database} from '../../database';
 import {NedbCollection} from './collection';
 
-export class NedbDriver {
-  constructor(options = {}) {
+export class NedbDatabase extends Database {
+  constructor(options) {
+    super(options);
+
     if (!options.collections) {
       throw new Error('No collection info provided.');
     }

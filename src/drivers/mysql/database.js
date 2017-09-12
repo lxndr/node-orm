@@ -1,10 +1,12 @@
 import _ from 'lodash';
-import {Promise} from 'bluebird';
 import mysql from 'mysql2';
-import MysqlConnection from './connection';
+import {Database} from '../../database';
+import {MysqlConnection} from './connection';
 
-export default class MysqlDriver {
-  constructor(options = {}) {
+export class MysqlDriver extends Database {
+  constructor(options) {
+    super(options);
+
     const conf = {
       host: options.host,
       port: options.port,

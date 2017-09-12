@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import {Database} from '../../database';
 import {ArangoConnection} from './connection';
+import {ArangoCollection} from './collection';
 import {ArangoStatement} from './statement';
 
 export class ArangoDatabase extends Database {
@@ -15,6 +16,9 @@ export class ArangoDatabase extends Database {
   }
 
   createConnection() {
-    return new ArangoConnection(this._arangoOptions);
+    return new this.Connection(this, this._arangoOptions);
   }
 }
+
+ArangoDatabase.prototype.Connection = ArangoConnection;
+ArangoDatabase.prototype.Collection = ArangoCollection;

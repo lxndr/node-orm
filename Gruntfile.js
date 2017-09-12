@@ -27,6 +27,19 @@ module.exports = function (grunt) {
           src: '**/*.js',
           dest: 'lib'
         }]
+      },
+      options: {
+        presets: [
+          ['env', {
+            targets: {
+              node: 'current'
+            }
+          }]
+        ],
+        plugins: [
+          'transform-decorators-legacy',
+          'transform-class-properties'
+        ]
       }
     }
   });

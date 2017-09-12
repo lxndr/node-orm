@@ -1,1 +1,1 @@
-export {NedbDriver as default} from './driver';
+export {NedbDatabase as default} from './database';

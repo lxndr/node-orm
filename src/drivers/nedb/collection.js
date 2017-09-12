@@ -1,22 +1,21 @@
 import Datastore from 'nedb';
-import {Collection} from '../collection';
-import {promiseFromCallback} from '../util';
+import {Collection} from '../../collection';
+import {promiseFromCallback} from '../../util';
 
 export class NedbCollection extends Collection {
   constructor(db, collectionInfo) {
-    super(db, collectionInfo);
-
-    this.name = collectionInfo.name;
-    this._db = db;
-    this._path = collectionInfo.path;
-    this._store = new Datastore({filename: collectionInfo.path, autoload: true});
-
+    super(db, collectionInfo.name);
     this.primaryKey = '_id';
+
+    this._store = new Datastore({
+      filename: collectionInfo.path,
+      autoload: true
+    });
   }
 
   find(query = {}) {
     return promiseFromCallback(cb => {
-      this._store.find(query, cb);
+      this._store.find(query).exec(cb);
     });
   }
 
